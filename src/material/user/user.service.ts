@@ -7,12 +7,13 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { UsersRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    private usersRepository: UsersRepository,
   ) { }
 
   findAll() {
@@ -22,12 +23,19 @@ export class UserService {
   findOne(id: number) {
     return this.usersRepository.findOneBy({ id });
   }
+  findOneByLoginName(loginName: string) {
+    return this.usersRepository.findOneBy({ loginName });
+  }
 
   async remove(id: number) {
     await this.usersRepository.delete(id);
   }
 
   create(createUserDto: CreateUserDto) {
+
+
+
+
     const user = new User();
     user.firstName = createUserDto.firstName;
     user.lastName = createUserDto.lastName;

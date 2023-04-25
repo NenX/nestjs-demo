@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters, Request, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { HttpExceptionFilter } from 'src/core/interceptors/http-exception.filter';
 import { Pagination } from 'src/common/paginate';
 import { ConfigService } from '@nestjs/config';
+import { AuthGuard } from 'src/core/auth/auth.guard';
 
 
 @Controller('user')
@@ -16,6 +17,7 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   async findAll() {
     const users =  await this.userService.findAll();

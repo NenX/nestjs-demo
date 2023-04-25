@@ -11,6 +11,7 @@ import { HttpExceptionFilter } from 'src/core/interceptors/http-exception.filter
   imports: [TypeOrmModule.forFeature([User])],
   providers: [UserService,],
   controllers: [UserController],
+  exports:[UserService]
 })
 export class UserModule { }
 

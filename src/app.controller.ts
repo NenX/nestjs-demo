@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Param, Post, Request } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Request, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 
 import { Request as R } from 'express';
 import QRCode from 'qrcode';
 import { AppConfig } from './utils/AppConfig';
+import { AuthGuard } from '@nestjs/passport';
+import { LocalAuthGuard } from './core/auth/local-auth.guard';
 const m = new Map<string, boolean>()
 class H { 'aa': number }
 @Controller()
@@ -43,5 +45,12 @@ export class AppController {
   sign(@Param('id') id: string,) {
     m.set(id, true)
     return 2222222222;
+  }
+
+
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  async login(@Request() req) {
+    return req.user;
   }
 }
