@@ -8,6 +8,11 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UsersRepository } from './user.repository';
+import * as bcrypt from 'bcrypt';
+import {
+  ConflictException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 
 @Injectable()
 export class UserService {
@@ -31,16 +36,36 @@ export class UserService {
     await this.usersRepository.delete(id);
   }
 
-  create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
 
+    const { loginName, password } = createUserDto;
 
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
 
+    const user = this.usersRepository.create({ loginName, password: hashedPassword });
 
-    const user = new User();
     user.firstName = createUserDto.firstName;
     user.lastName = createUserDto.lastName;
 
-    return this.usersRepository.save(user);
+    try {
+      return await this.usersRepository.save(user);
+    } catch (error) {
+      if (error.code === '23505') {
+        // duplicate username
+        throw new ConflictException('Username already exists');
+      } else {
+        throw new InternalServerErrorException();
+      }
+    }
+
+
+
+
+
+
+
+
   }
   update(id: number, createUserDto: UpdateUserDto) {
     const user = new User();
