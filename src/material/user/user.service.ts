@@ -22,7 +22,7 @@ export class UserService {
   ) { }
 
   findAll() {
-    return this.usersRepository.find();
+    return this.usersRepository.find({relations:{roles:true}});
   }
 
   findOne(id: number) {
@@ -43,7 +43,7 @@ export class UserService {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const user = this.usersRepository.create({ loginName, password: hashedPassword });
+    const user = this.usersRepository.create({ ...createUserDto, loginName, password: hashedPassword });
 
     user.firstName = createUserDto.firstName;
     user.lastName = createUserDto.lastName;
@@ -58,12 +58,6 @@ export class UserService {
         throw new InternalServerErrorException();
       }
     }
-
-
-
-
-
-
 
 
   }

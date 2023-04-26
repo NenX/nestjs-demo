@@ -17,13 +17,13 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  @UseGuards(AuthGuard)
   @Get()
   async findAll() {
     const users =  await this.userService.findAll();
     return {users,test:this.configService.get('sb')}
   }
-
+  
+  @UseGuards(AuthGuard)
   @Get('page')
   async index(@Request() request) {
     // TODO make PaginationOptionsInterface an object so it can be defaulted

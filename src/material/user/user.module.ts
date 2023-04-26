@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from 'src/core/interceptors/http-exception.filter';
+import { RoleModule } from 'src/role/role.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],

@@ -14,6 +14,7 @@ import { PregnancyModule } from './material/pregnancy/pregnancy.module';
 import { ConfigModule } from '@nestjs/config';
 import { AppConfig } from './utils/AppConfig';
 import { AuthModule } from './core/auth/auth.module';
+import { RoleModule } from './role/role.module';
 
 @Module({
   imports: [
@@ -35,7 +36,7 @@ import { AuthModule } from './core/auth/auth.module';
       // entities: [User],
       synchronize: true,
     }),
-    CoreModule, UserModule, DrawModule, PvModule, ExamModule, PregnancyModule,AuthModule
+    CoreModule, UserModule, DrawModule, PvModule, ExamModule, PregnancyModule,AuthModule, RoleModule
 
 
 
