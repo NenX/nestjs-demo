@@ -11,7 +11,7 @@ async function bootstrap() {
   });
   app.setGlobalPrefix(prefix, { exclude: ['/'] })
 
-  app.useGlobalFilters(new AllExceptionsFilter(app.get(HttpAdapterHost)));
+  app.useGlobalFilters(new AllExceptionsFilter);
 
   await app.listen(port);
   console.log(`running at: http://${getIpAddress()}:${port}/${prefix}`)
