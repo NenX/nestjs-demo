@@ -15,6 +15,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppConfig } from './utils/AppConfig';
 import { AuthModule } from './core/auth/auth.module';
 import { RoleModule } from './role/role.module';
+import { ResourcesModule } from './material/resources/resources.module';
 
 @Module({
   imports: [
@@ -36,7 +37,7 @@ import { RoleModule } from './role/role.module';
       // entities: [User],
       synchronize: true,
     }),
-    CoreModule, UserModule, DrawModule, PvModule, ExamModule, PregnancyModule,AuthModule, RoleModule
+    CoreModule, UserModule, DrawModule, PvModule, ExamModule, PregnancyModule,AuthModule, RoleModule, ResourcesModule
 
 
 

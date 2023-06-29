@@ -3,7 +3,7 @@ import { DrawService } from './draw.service';
 import { DrawController } from './draw.controller';
 
 @Module({
-  controllers: [DrawController],
-  providers: [DrawService]
+  // controllers: [DrawController],
+  // providers: [DrawService]
 })
 export class DrawModule {}

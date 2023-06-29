@@ -8,7 +8,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();
         const request = ctx.getRequest<Request>();
-        const status = exception.getStatus();
+        const status = exception.getStatus?.() ?? 500;
 
         response
             .status(status)
@@ -31,7 +31,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();
         const request = ctx.getRequest<Request>();
-        const status = exception.getStatus();
+        const status = exception.getStatus?.() ?? 500;
         response
             .status(status)
             .json({
