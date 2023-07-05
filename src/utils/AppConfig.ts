@@ -1,4 +1,8 @@
 import { resolve } from 'path';
+import { loadEnvFile } from '../preload';
+
+
+
 export interface IConfig {
   name: string
   port: string
@@ -16,10 +20,13 @@ export class AppConfig {
 
   private static get config() {
     if (AppConfig._envConfig) return AppConfig._envConfig
+    const c = loadEnvFile()
     const configPath = './config'
     const filePath = `${process.env.NODE_ENV || 'development'}.config`;
     const configFile = resolve(configPath, filePath);
-    AppConfig._envConfig = Object.assign(require(configFile), process.env)
+    const dd = require(configFile);
+
+    AppConfig._envConfig = Object.assign({}, dd, c)
     console.log('sbbxx', AppConfig._envConfig.DATABASE_HOST, process.env.DATABASE_HOST)
     return AppConfig._envConfig
   }

@@ -38,6 +38,9 @@ export class Resource {
   name: string;
 
   @Column()
+  dept: string;
+
+  @Column()
   apiPrefix: string;
 
 

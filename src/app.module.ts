@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoreModule } from './core/core.module';
-import { DrawModule } from './material/draw/draw.module';
+// import { DrawModule } from './material/draw/draw.module';
 import { User } from './material/user/entities/user.entity';
 import { UserModule } from './material/user/user.module';
 
@@ -37,7 +37,9 @@ import { ResourcesModule } from './material/resources/resources.module';
       // entities: [User],
       synchronize: true,
     }),
-    CoreModule, UserModule, DrawModule, PvModule, ExamModule, PregnancyModule,AuthModule, RoleModule, ResourcesModule
+    CoreModule, UserModule,
+    // DrawModule,
+    PvModule, ExamModule, PregnancyModule, AuthModule, RoleModule, ResourcesModule
 
 
 
